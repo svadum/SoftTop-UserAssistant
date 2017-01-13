@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
-#include <QTableWidget>
 #include "toptenlist.h"
 #include "keydata.h"
 
@@ -47,7 +46,7 @@ private:
     Ui::SoftTop *ui;
     QMessageBox *aboutBox;
     TopTenList *topList;
-    QVector<KeyData*> topKeyVector;
+    QVector<KeyData> topKeyVector;
 
     // service
     void setTopTable(int rowCount);

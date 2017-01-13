@@ -6,40 +6,32 @@ KeyData::KeyData()
       focusTime(0)
 {}
 
-KeyData::KeyData(QString keyName, int keyRunCount,
-        int keyFocusTime, QDateTime keyLastDateTime)
+KeyData::KeyData(const QString &keyName, const int &keyRunCount,
+        const int &keyFocusTime, const QDateTime &keyLDT)
 {
     setName(keyName);
     setRunCount(keyRunCount);
     setFocusTime(keyFocusTime);
-    setLastDateTime(keyLastDateTime);
+    setLastDateTime(keyLDT);
 }
 
-KeyData::KeyData(const KeyData &keyCopy)
-{
-    setName(keyCopy.getName());
-    setRunCount(keyCopy.getRunCount());
-    setFocusTime(keyCopy.getFocusTime());
-    setLastDateTime(keyCopy.getLastDateTime());
-}
-
-void KeyData::setName(QString keyName)
+void KeyData::setName(const QString &keyName)
 {
     if(!keyName.isEmpty())
         name = rewriteName(rot13(keyName));
 }
 
-void KeyData::setRunCount(int keyRunCount)
+void KeyData::setRunCount(const int &keyRunCount)
 {
     runCount = (keyRunCount >= 0 ? keyRunCount : 0);
 }
 
-void KeyData::setFocusTime(int keyFocusTime)
+void KeyData::setFocusTime(const int &keyFocusTime)
 {
     focusTime = (keyFocusTime >= 0 ? keyFocusTime : 0);
 }
 
-void KeyData::setLastDateTime(QDateTime keyLDT)
+void KeyData::setLastDateTime(const QDateTime &keyLDT)
 {
     if(!keyLDT.isNull())
         lastDateTime = keyLDT;
@@ -60,7 +52,7 @@ QString KeyData::rot13(const QString &input) const
     return r;
 }
 
-QString KeyData::rewriteName(const QString input)
+QString KeyData::rewriteName(const QString &input)
 {
     QString out;
     QStringList outList = input.split('\\');

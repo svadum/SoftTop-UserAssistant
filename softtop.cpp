@@ -1,7 +1,8 @@
+#include <QTableWidget>
 #include "softtop.h"
 #include "ui_softtop.h"
 
-#define RowDefaultSize 10
+static const int RowDefaultSize = 10;
 
 SoftTop::SoftTop(QWidget *parent) :
     QMainWindow(parent),
@@ -13,8 +14,7 @@ SoftTop::SoftTop(QWidget *parent) :
 
     topKeyVector = topList->getTopListVector();
 
-    aboutBox->setText("Created by Senkiv Vadum");
-    setWindowIcon(QIcon("D:/QT Projects/SoftTop/iconTT.ico"));
+    aboutBox->setText("Created by Senkiv Vadym");
 
     ui->topTable->setColumnCount(4);
 
@@ -24,7 +24,15 @@ SoftTop::SoftTop(QWidget *parent) :
     ui->topTable->setColumnWidth(3, 80);
 
     ui->topTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->topTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
+    ui->topTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
+    ui->topTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Fixed);
     ui->topTable->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    ui->topTable->sortByColumn(1, Qt::AscendingOrder);
+    ui->topTable->sortByColumn(2, Qt::AscendingOrder);
+    ui->topTable->sortByColumn(3, Qt::AscendingOrder);
+
 
     ui->topTable->setHorizontalHeaderLabels(
                 QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
@@ -73,10 +81,10 @@ void SoftTop::setTopTable(int rowCount)
         countItm->setTextAlignment(Qt::AlignHCenter);
         focusTimeItm->setTextAlignment(Qt::AlignHCenter);
 
-        nameItm->setText(topKeyVector.at(i)->getName());
-        dateItm->setText(topKeyVector.at(i)->getLastDateTime().toString("yyyy/MM/dd hh:mm:ss"));
-        countItm->setText(QString::number(topKeyVector.at(i)->getRunCount()));
-        focusTimeItm->setText(QString::number(topKeyVector.at(i)->getFocusTime()));
+        nameItm->setText(topKeyVector.at(i).getName());
+        dateItm->setText(topKeyVector.at(i).getLastDateTime().toString("yyyy/MM/dd hh:mm:ss"));
+        countItm->setText(QString::number(topKeyVector.at(i).getRunCount()));
+        focusTimeItm->setText(QString::number(topKeyVector.at(i).getFocusTime()));
 
         ui->topTable->setItem(i, j, nameItm);
         ui->topTable->setItem(i, j + 1, dateItm);

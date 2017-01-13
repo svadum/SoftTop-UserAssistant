@@ -1,5 +1,10 @@
 #include "toptenlist.h"
 
+static const int ACCESS_ERROR = 1;
+static const int MAX_KEY_LENGTH = 255;
+static const int MAX_VALUE_NAME = 16383;
+
+
 TopTenList::TopTenList()
 {
     firstUserAssPath =
@@ -92,7 +97,7 @@ ULONG TopTenList::EnumKey(HKEY hKey, DWORD index, QString &keyName)
 }
 
 void TopTenList::EnumValue(HKEY hKey, DWORD index,
-                               QString &valueName, QVector<KeyData*> &vKeyValueData)
+                               QString &valueName, QVector<KeyData> &vKeyValueData)
 {
         // buff for name
         DWORD lenFileName = MAX_VALUE_NAME;
@@ -139,61 +144,62 @@ void TopTenList::EnumValue(HKEY hKey, DWORD index,
                 localtime_s(&timeInfo, &t);
             }
 
-            vKeyValueData.push_back(new KeyData(valueName,runCount,focusTime,
+            vKeyValueData.push_back(KeyData(valueName,runCount,focusTime,
                                                 QDateTime::fromTime_t(t)));
         }
         // extra test
         //else
-        //     vKeyValueData.push_back(new KeyData("undefined", 0, 0, QDateTime()));
+        //     vKeyValueData.push_back(KeyData("undefined", 0, 0, QDateTime()));
 
         delete[] achData;
 }
 
 void TopTenList::updateList(SortType st)
 {
-    int fErrCode, sErrCode;
-
     // get values and set vector
-    fErrCode = GetKeyValues(firstUserAssPath);
-    sErrCode = GetKeyValues(secondUsetAssPath);
+    int fErrCode = GetKeyValues(firstUserAssPath);
+    int sErrCode = GetKeyValues(secondUsetAssPath);
 
-    switch (st) {
-    case SortType::ByDays:
-        sortByDays();
-        break;
+    if(fErrCode == ERROR_SUCCESS && sErrCode == ERROR_SUCCESS)
+    {
+        switch (st) {
+        case SortType::ByDays:
+            sortByDays();
+            break;
 
-    case SortType::ByAllTime:
-        sortByAllTime();
-        break;
+        case SortType::ByAllTime:
+            sortByAllTime();
+            break;
 
-    default:
-        sortByHour();
-        break;
+        default:
+            sortByHour();
+            break;
+        }
     }
 }
 
-void TopTenList::sortList(bool (*l)(KeyData *right, KeyData *left))
+void TopTenList::sortList(bool (*f)(KeyData &right, KeyData &left))
 {
-    qSort(vTopList.begin(), vTopList.end(), l);
+    qSort(vTopList.begin(), vTopList.end(), f);
 }
 
 void TopTenList::sortByHour()
 {
-    sortList([](KeyData* left, KeyData* right){
-        return left->getLastDateTime() > right->getLastDateTime();
+    sortList([](KeyData &left, KeyData &right){
+        return left.getLastDateTime() > right.getLastDateTime();
     });
 }
 
 void TopTenList::sortByDays()
 {
-    sortList([](KeyData *right, KeyData *left){
-        return left->getRunCount() < right->getRunCount();
+    sortList([](KeyData &right, KeyData &left){
+        return left.getRunCount() < right.getRunCount();
     });
 }
 
 void TopTenList::sortByAllTime()
 {
-    sortList([](KeyData *right, KeyData *left){
-        return left->getFocusTime() < right->getFocusTime();
+    sortList([](KeyData &right, KeyData &left){
+        return left.getFocusTime() < right.getFocusTime();
     });
 }

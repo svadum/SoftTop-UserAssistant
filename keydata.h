@@ -1,26 +1,24 @@
-#ifndef KEYINFO_H
-#define KEYINFO_H
+#ifndef KEYDATA_H
+#define KEYDATA_H
 
 #include <QString>
-#include <QSettings>
 #include <QDateTime>
 #include <ctime>
-#include <Windows.h>
 
 class KeyData
 {
 public:
     // cstor & dstor
     KeyData();  // default
-    KeyData(QString keyName, int keyRunCount, int keyFocusTime, QDateTime keyLastDateTime);
-    KeyData(const KeyData &); // copy
-    ~KeyData();
+    KeyData(const QString &keyName, const int &keyRunCount,
+            const int &keyFocusTime, const QDateTime &keyLDT);
+    //~KeyData();
 
     // set
-    void setName(QString keyName);
-    void setRunCount(int keyRunCount);
-    void setFocusTime(int keyFocusTime);
-    void setLastDateTime(QDateTime keyFocusTime);
+    void setName(const QString &keyName);
+    void setRunCount(const int &keyRunCount);
+    void setFocusTime(const int &keyFocusTime);
+    void setLastDateTime(const QDateTime &keyFocusTime);
 
     // get
     QString getName() const { return name; }
@@ -36,8 +34,8 @@ private:
 
     // service
     QString rot13(const QString &input) const;
-    QString rewriteName(const QString input);
+    QString rewriteName(const QString &input);
 
 };
 
-#endif // KEYINFO_H
+#endif // KEYDATA_H
