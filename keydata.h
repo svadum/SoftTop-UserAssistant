@@ -10,14 +10,14 @@ class KeyData
 public:
     // cstor & dstor
     KeyData();  // default
-    KeyData(const QString &keyName, const int &keyRunCount,
-            const int &keyFocusTime, const QDateTime &keyLDT);
+    KeyData(const QString &keyName, int keyRunCount,
+            int keyFocusTime, const QDateTime &keyLDT);
     //~KeyData();
 
     // set
     void setName(const QString &keyName);
-    void setRunCount(const int &keyRunCount);
-    void setFocusTime(const int &keyFocusTime);
+    void setRunCount(int keyRunCount);
+    void setFocusTime(int keyFocusTime);
     void setLastDateTime(const QDateTime &keyFocusTime);
 
     // get

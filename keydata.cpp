@@ -6,8 +6,8 @@ KeyData::KeyData()
       focusTime(0)
 {}
 
-KeyData::KeyData(const QString &keyName, const int &keyRunCount,
-        const int &keyFocusTime, const QDateTime &keyLDT)
+KeyData::KeyData(const QString &keyName, int keyRunCount,
+        int keyFocusTime, const QDateTime &keyLDT)
 {
     setName(keyName);
     setRunCount(keyRunCount);
@@ -21,12 +21,12 @@ void KeyData::setName(const QString &keyName)
         name = rewriteName(rot13(keyName));
 }
 
-void KeyData::setRunCount(const int &keyRunCount)
+void KeyData::setRunCount(int keyRunCount)
 {
     runCount = (keyRunCount >= 0 ? keyRunCount : 0);
 }
 
-void KeyData::setFocusTime(const int &keyFocusTime)
+void KeyData::setFocusTime(int keyFocusTime)
 {
     focusTime = (keyFocusTime >= 0 ? keyFocusTime : 0);
 }

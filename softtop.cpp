@@ -2,7 +2,7 @@
 #include "softtop.h"
 #include "ui_softtop.h"
 
-static const int RowDefaultSize = 10;
+static const int kRowDefaultSize = 10;
 
 SoftTop::SoftTop(QWidget *parent) :
     QMainWindow(parent),
@@ -37,7 +37,7 @@ SoftTop::SoftTop(QWidget *parent) :
     ui->topTable->setHorizontalHeaderLabels(
                 QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
 
-    setTopTable(RowDefaultSize);
+    setTopTable(kRowDefaultSize);
 }
 
 SoftTop::~SoftTop()
@@ -63,7 +63,7 @@ void SoftTop::on_viewAllcheckBox_clicked()
     if(ui->viewAllcheckBox->isChecked())
         setTopTable(topKeyVector.size());
     else
-        setTopTable(RowDefaultSize);
+        setTopTable(kRowDefaultSize);
 }
 
 void SoftTop::setTopTable(int rowCount)
