@@ -18,10 +18,6 @@ SoftTop::SoftTop(QWidget *parent) :
 
     aboutBox->setText("Created by Senkiv Vadym");
 
-    // set first day of week and
-    // current DateTime for dtEdit
-    ui->dateEdit->setDate(QDate::currentDate());
-
 
     // set columns and sizes
     ui->topTable->setColumnCount(4);
