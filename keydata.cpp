@@ -3,7 +3,8 @@
 KeyData::KeyData()
     : name(""),
       runCount(0),
-      focusTime(0)
+      focusTime(0),
+      lastDateTime(QDateTime::currentDateTime())
 {}
 
 KeyData::KeyData(const QString &keyName, int keyRunCount,
@@ -19,6 +20,8 @@ void KeyData::setName(const QString &keyName)
 {
     if(!keyName.isEmpty())
         name = rewriteName(rot13(keyName));
+    else
+        name = "";
 }
 
 void KeyData::setRunCount(int keyRunCount)
@@ -35,6 +38,8 @@ void KeyData::setLastDateTime(const QDateTime &keyLDT)
 {
     if(!keyLDT.isNull())
         lastDateTime = keyLDT;
+    else
+        lastDateTime = QDateTime::currentDateTime();
 }
 
 QString KeyData::rot13(const QString &input) const

@@ -1,4 +1,5 @@
 #include <QTableWidget>
+#include <QCalendarWidget>
 #include "softtop.h"
 #include "ui_softtop.h"
 
@@ -12,10 +13,17 @@ SoftTop::SoftTop(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // init. components
     topKeyVector = topList->getTopListVector();
 
     aboutBox->setText("Created by Senkiv Vadym");
 
+    // set first day of week and
+    // current DateTime for dtEdit
+    ui->dateEdit->setDate(QDate::currentDate());
+
+
+    // set columns and sizes
     ui->topTable->setColumnCount(4);
 
     ui->topTable->setColumnWidth(0, 250);
@@ -33,10 +41,11 @@ SoftTop::SoftTop(QWidget *parent) :
     ui->topTable->sortByColumn(2, Qt::AscendingOrder);
     ui->topTable->sortByColumn(3, Qt::AscendingOrder);
 
-
+    // set columns labels(names)
     ui->topTable->setHorizontalHeaderLabels(
                 QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
 
+    // ouput top
     setTopTable(kRowDefaultSize);
 }
 
