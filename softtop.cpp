@@ -37,6 +37,8 @@ SoftTop::SoftTop(QWidget *parent) :
     ui->topTable->sortByColumn(2, Qt::AscendingOrder);
     ui->topTable->sortByColumn(3, Qt::AscendingOrder);
 
+    //ui->topTable->setMinimumSize(648, 462);
+
     // set columns labels(names)
     ui->topTable->setHorizontalHeaderLabels(
                 QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
@@ -82,14 +84,34 @@ void SoftTop::setTopTable(int rowCount)
         QTableWidgetItem *countItm = new QTableWidgetItem();
         QTableWidgetItem *focusTimeItm = new QTableWidgetItem();
 
+        /*if(i < 10 && ui->viewAllcheckBox->isChecked())
+        {
+            nameItm->setBackgroundColor(Qt::yellow);
+            dateItm->setBackgroundColor(Qt::red);
+            countItm->setBackgroundColor(Qt::red);
+            focusTimeItm->setBackgroundColor(Qt::red);
+        }*/
+
         dateItm->setTextAlignment(Qt::AlignHCenter);
         countItm->setTextAlignment(Qt::AlignHCenter);
         focusTimeItm->setTextAlignment(Qt::AlignHCenter);
 
         nameItm->setText(topKeyVector.at(i).getName());
-        dateItm->setText(topKeyVector.at(i).getLastDateTime().toString("yyyy/MM/dd hh:mm:ss"));
+        dateItm->setText(topKeyVector.at(i).getLastDateTime().toString("dd/MM/yyyy - hh:mm:ss"));
         countItm->setText(QString::number(topKeyVector.at(i).getRunCount()));
         focusTimeItm->setText(QString::number(topKeyVector.at(i).getFocusTime()));
+
+        if(topKeyVector.at(i).getFocusTime() < 10000) {
+            focusTimeItm->setBackgroundColor(Qt::green);
+        }
+        else if(topKeyVector.at(i).getFocusTime() >= 10000 &&
+                topKeyVector.at(i).getFocusTime() < 50000) {
+            focusTimeItm->setBackgroundColor(Qt::yellow);
+        }
+        else if(topKeyVector.at(i).getFocusTime() >= 50000) {
+            focusTimeItm->setBackgroundColor(Qt::red);
+        }
+
 
         ui->topTable->setItem(i, j, nameItm);
         ui->topTable->setItem(i, j + 1, dateItm);

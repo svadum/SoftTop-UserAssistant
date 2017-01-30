@@ -10,12 +10,22 @@
     <height>462</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>350</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+    <pointsize>9</pointsize>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>SoftTop - User Assistant</string>
-  </property>
-  <property name="windowIcon">
-   <iconset theme="TT">
-    <normaloff>iconTT.ico</normaloff>iconTT.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -25,6 +35,9 @@
        <widget class="QTableWidget" name="topTable">
         <property name="cursor" stdset="0">
          <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="columnCount">
+         <number>0</number>
         </property>
        </widget>
       </item>
