@@ -1,4 +1,5 @@
 #include "toptenlist.h"
+#include <ctime>
 
 static const int ACCESS_ERROR = 1;
 static const int MAX_KEY_LENGTH = 255;

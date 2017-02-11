@@ -47,12 +47,12 @@ QString KeyData::rot13(const QString &input) const
     QString r = input;
     int i = r.length();
     while( i-- ) {
-        if ( r[i] >= QChar('A') && r[i] <= QChar('M') ||
-            r[i] >= QChar('a') && r[i] <= QChar('m') )
-            r[i] = (char)((int)QChar(r[i]).unicode() + 13);
-        else if  ( r[i] >= QChar('N') && r[i] <= QChar('Z') ||
-            r[i] >= QChar('n') && r[i] <= QChar('z') )
-            r[i] = (char)((int)QChar(r[i]).unicode() - 13);
+        if (r[i] >= QChar('A') && r[i] <= QChar('M') ||
+            r[i] >= QChar('a') && r[i] <= QChar('m'))
+           r[i] = (QChar)(QChar(r[i]).unicode() + 13);
+        else if  (r[i] >= QChar('N') && r[i] <= QChar('Z') ||
+                  r[i] >= QChar('n') && r[i] <= QChar('z'))
+                 r[i] = (QChar)(QChar(r[i]).unicode() - 13);
     }
     return r;
 }

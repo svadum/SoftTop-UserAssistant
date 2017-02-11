@@ -37,11 +37,12 @@ SoftTop::SoftTop(QWidget *parent) :
     ui->topTable->sortByColumn(2, Qt::AscendingOrder);
     ui->topTable->sortByColumn(3, Qt::AscendingOrder);
 
-    //ui->topTable->setMinimumSize(648, 462);
-
     // set columns labels(names)
     ui->topTable->setHorizontalHeaderLabels(
-                QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
+                QStringList() << "Program" << "Last Run Date" << "Run count" << "Focus time");
+
+    // TODO: column sorting
+    //ui->topTable->setSortingEnabled(true);
 
     // ouput top
     setTopTable(kRowDefaultSize);
@@ -84,6 +85,7 @@ void SoftTop::setTopTable(int rowCount)
         QTableWidgetItem *countItm = new QTableWidgetItem();
         QTableWidgetItem *focusTimeItm = new QTableWidgetItem();
 
+        // TODO:
         /*if(i < 10 && ui->viewAllcheckBox->isChecked())
         {
             nameItm->setBackgroundColor(Qt::yellow);
