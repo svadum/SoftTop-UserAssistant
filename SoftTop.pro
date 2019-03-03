@@ -27,10 +27,10 @@ LIBS += -lAdvapi32
 SOURCES += main.cpp\
     softtop.cpp \
     keydata.cpp \
-    toptenlist.cpp
+    userassistant.cpp
 
 HEADERS += softtop.h \
     keydata.h \
-    toptenlist.h
+    userassistant.h
 
 FORMS    += softtop.ui

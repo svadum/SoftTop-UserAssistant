@@ -9,15 +9,14 @@ SoftTop::SoftTop(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SoftTop),
     aboutBox(new QMessageBox),
-    topList(new TopTenList)
+    topList(new UserAssistant)
 {
     ui->setupUi(this);
 
     // init. components
-    topKeyVector = topList->getTopListVector();
+    topKeyVector = topList->values();
 
     aboutBox->setText("Created by Senkiv Vadym");
-
 
     // set columns and sizes
     ui->topTable->setColumnCount(4);
@@ -38,8 +37,7 @@ SoftTop::SoftTop(QWidget *parent) :
     ui->topTable->sortByColumn(3, Qt::AscendingOrder);
 
     // set columns labels(names)
-    ui->topTable->setHorizontalHeaderLabels(
-                QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
+    ui->topTable->setHorizontalHeaderLabels(QStringList() << "Name" << "Last Run Date" << "Run count" << "Focus time");
 
     // ouput top
     setTopTable(kRowDefaultSize);
@@ -98,20 +96,20 @@ void SoftTop::setTopTable(int rowCount)
     }
 }
 
-TopTenList::SortType SoftTop::getCurrentSortType()
+UserAssistant::SortType SoftTop::getCurrentSortType()
 {
     if(ui->byHour->isChecked())
-        return TopTenList::ByHour;
+        return UserAssistant::ByHour;
     else if(ui->byDay->isChecked())
-        return TopTenList::ByDays;
+        return UserAssistant::ByDays;
 
-    return TopTenList::ByAllTime;
+    return UserAssistant::ByAllTime;
 }
 
 void SoftTop::on_updateButton_clicked()
 {
-    topList->updateList(getCurrentSortType());
-    topKeyVector = topList->getTopListVector();
+    topList->setSortType(getCurrentSortType());
+    topKeyVector = topList->values();
 
     on_viewAllcheckBox_clicked();
 }

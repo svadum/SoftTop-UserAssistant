@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
-#include "toptenlist.h"
+#include "userassistant.h"
 #include "keydata.h"
 
 namespace Ui {
@@ -45,12 +45,12 @@ private:
     // members
     Ui::SoftTop *ui;
     QMessageBox *aboutBox;
-    TopTenList *topList;
+    UserAssistant *topList;
     QVector<KeyData> topKeyVector;
 
     // service
     void setTopTable(int rowCount);
-    TopTenList::SortType getCurrentSortType();
+    UserAssistant::SortType getCurrentSortType();
 };
 
 #endif // SOFTTOP_H

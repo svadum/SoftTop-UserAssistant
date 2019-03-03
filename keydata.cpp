@@ -1,11 +1,9 @@
 #include "keydata.h"
 
 KeyData::KeyData()
-    : name(""),
-      runCount(0),
-      focusTime(0),
-      lastDateTime(QDateTime::currentDateTime())
-{}
+    : name(), runCount(0), focusTime(0), lastDateTime()
+{
+}
 
 KeyData::KeyData(const QString &keyName, int keyRunCount,
         int keyFocusTime, const QDateTime &keyLDT)
@@ -19,9 +17,9 @@ KeyData::KeyData(const QString &keyName, int keyRunCount,
 void KeyData::setName(const QString &keyName)
 {
     if(!keyName.isEmpty())
-        name = rewriteName(rot13(keyName));
+        name = fileName(rot13(keyName));
     else
-        name = "";
+        name.clear();
 }
 
 void KeyData::setRunCount(int keyRunCount)
@@ -36,10 +34,12 @@ void KeyData::setFocusTime(int keyFocusTime)
 
 void KeyData::setLastDateTime(const QDateTime &keyLDT)
 {
-    if(!keyLDT.isNull())
-        lastDateTime = keyLDT;
-    else
-        lastDateTime = QDateTime::currentDateTime();
+    lastDateTime = keyLDT;
+}
+
+bool KeyData::isValid() const
+{
+    return !name.isEmpty();
 }
 
 QString KeyData::rot13(const QString &input) const
@@ -49,18 +49,19 @@ QString KeyData::rot13(const QString &input) const
     while( i-- ) {
         if ( r[i] >= QChar('A') && r[i] <= QChar('M') ||
             r[i] >= QChar('a') && r[i] <= QChar('m') )
-            r[i] = (char)((int)QChar(r[i]).unicode() + 13);
+            r[i] = (char)((int)(r[i].unicode() + 13));
         else if  ( r[i] >= QChar('N') && r[i] <= QChar('Z') ||
             r[i] >= QChar('n') && r[i] <= QChar('z') )
-            r[i] = (char)((int)QChar(r[i]).unicode() - 13);
+            r[i] = (char)((int)(r[i].unicode() - 13));
     }
+
     return r;
 }
 
-QString KeyData::rewriteName(const QString &input)
+QString KeyData::fileName(const QString &path)
 {
     QString out;
-    QStringList outList = input.split('\\');
+    QStringList outList = path.split('\\');
     out = outList.at(outList.size() - 1);
 
     return out;

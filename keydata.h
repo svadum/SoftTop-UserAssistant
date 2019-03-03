@@ -3,28 +3,25 @@
 
 #include <QString>
 #include <QDateTime>
-#include <ctime>
 
 class KeyData
 {
 public:
-    // cstor & dstor
-    KeyData();  // default
+    KeyData();
     KeyData(const QString &keyName, int keyRunCount,
             int keyFocusTime, const QDateTime &keyLDT);
-    //~KeyData();
 
-    // set
     void setName(const QString &keyName);
     void setRunCount(int keyRunCount);
     void setFocusTime(int keyFocusTime);
     void setLastDateTime(const QDateTime &keyFocusTime);
 
-    // get
     QString getName() const { return name; }
     int getRunCount() const { return runCount; }
     int getFocusTime() const { return focusTime; }
     QDateTime getLastDateTime() const { return lastDateTime; }
+
+    bool isValid() const;
 
 private:
     QString name;       // name of key
@@ -32,9 +29,9 @@ private:
     int focusTime;      // time in focus
     QDateTime lastDateTime;   // last run date
 
-    // service
+    // helpers
     QString rot13(const QString &input) const;
-    QString rewriteName(const QString &input);
+    QString fileName(const QString &path);
 
 };
 
