@@ -17,8 +17,10 @@ UserAssistant::UserAssistant(QObject *parent) : QObject(parent)
 
 void UserAssistant::setSortType(const SortType &st)
 {
-    m_sortType = st;
-    updateList();
+    if (m_sortType != st) {
+        m_sortType = st;
+        updateList();
+    }
 }
 
 void UserAssistant::updateList()
@@ -82,6 +84,7 @@ ULONG UserAssistant::queryInfoKey(HKEY hKey, LPDWORD countSubKeys, LPDWORD count
      return retCode;
 }
 
+// More info: https://www.aldeid.com/wiki/Windows-userassist-keys
 KeyData UserAssistant::enumValue(HKEY hKey, DWORD index)
 {
     // buff for name

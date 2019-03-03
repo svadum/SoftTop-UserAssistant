@@ -25,12 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 LIBS += -lAdvapi32
 
 SOURCES += main.cpp\
-    softtop.cpp \
     keydata.cpp \
-    userassistant.cpp
+    userassistant.cpp \
+    mainwindow.cpp
 
-HEADERS += softtop.h \
+HEADERS += \
     keydata.h \
-    userassistant.h
+    userassistant.h \
+    mainwindow.h
 
-FORMS    += softtop.ui
+FORMS    += \
+    mainwindow.ui
