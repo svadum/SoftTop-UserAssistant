@@ -2,4 +2,4 @@
 
 System requirements: Win 7/8/8.1/10
 
-Retrieve information (app name, app time, last run date-time and other) about used applications from Windows registry (see userassistant.h/cpp)
+Retrieve information (app name, app time, last run date-time and other) about used applications from Windows registry (see userassistant.h/cpp for details)
